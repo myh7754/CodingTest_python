@@ -10,13 +10,13 @@ A,B,C = map(int, input().split())
 def func(a,b,c):
     if b == 1:
         return a % c
-    val = func(a, b//2, c)
-    result = (val * val) % c
+
+    half = func(a, b//2, c)
+    print(half)
     if b % 2 == 0:
-        return result
-    return (result*a) % c
+        return (half * half) % c
+    else:
+        return (half * half * a) % c
 
 
 print(func(A,B,C))
-
-
