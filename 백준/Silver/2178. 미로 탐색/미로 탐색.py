@@ -1,31 +1,25 @@
-import sys
-input = sys.stdin.readline
 from collections import deque
 
-gy, gx = map(int, input().rstrip().split())
+n,m = map(int,input().split())
 
-graph = [list(map(int, input().rstrip())) for _ in range(gy)]
+graph = [list(map(int,input())) for i in range(n)]
 
-def bfs(x,y):
+def bfs(gy,gx):
     myqueue = deque()
-    myqueue.append((y,x))
-    dx = [-1,1,0,0]
-    dy = [0,0,-1,1]
-
+    myqueue.append((gx,gy))
+    dx = [ -1, 1, 0, 0]
+    dy = [ 0, 0, 1, -1]
     while myqueue:
-        y,x = myqueue.popleft()
+        x,y = myqueue.popleft()
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
+            if 0<=nx<m and 0<=ny<n:
+                if graph[ny][nx] == 0:
+                    continue
+                if graph[ny][nx] == 1:
+                    graph[ny][nx] = graph[y][x]+1
+                    myqueue.append((nx,ny))
 
-            if nx < 0 or ny<0 or nx>=gx or ny>=gy:
-                continue
-
-            if graph[ny][nx] == 0:
-                continue
-            if graph[ny][nx] == 1:
-                myqueue.append((ny,nx))
-                graph[ny][nx] = graph[y][x] +1
-    return graph[gy-1][gx-1]
-
+    return graph[n-1][m-1]
 print(bfs(0,0))
