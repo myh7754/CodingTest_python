@@ -1,4 +1,6 @@
 from collections import deque
+
+import sys
 gy, gx = map(int, input().split())
 
 graph = [list(input()) for i in range(gy)]
@@ -36,19 +38,15 @@ while jihoon:
         ny = dy[i] +y
         if 0<=nx< gx and 0<=ny <gy:
             if jihoon_graph[ny][nx] == -1 and graph[ny][nx] != "#" :
-                jihoon_graph[ny][nx] = jihoon_graph[y][x] + 1
-                jihoon.append((ny,nx))
-escape = float('inf')
-for i in range(gy):
-    for j in range(gx):
-        if i== 0 or j == 0 or i == gy-1 or j == gx-1:
-            if jihoon_graph[i][j] != -1:
-                if jihoon_graph[i][j] < fire_graph[i][j] or fire_graph[i][j] ==-1:
-                        escape = min(escape, jihoon_graph[i][j]+1)
+                if fire_graph[ny][nx] == -1 or fire_graph[ny][nx] > jihoon_graph[y][x]+1:
+                    jihoon_graph[ny][nx] = jihoon_graph[y][x] + 1
+                    jihoon.append((ny,nx))
+        else :
+                        # 범위 밖으로 나가면 탈출
+            print(jihoon_graph[y][x] + 1)
+            sys.exit(0)
 
-if escape == float('inf'):
-    print("IMPOSSIBLE")
-else:
-    print(escape)           
+
+print("IMPOSSIBLE")
          
     
