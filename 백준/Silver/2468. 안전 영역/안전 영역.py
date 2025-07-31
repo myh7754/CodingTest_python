@@ -29,7 +29,12 @@ def bfs(y,x, graph):
                     count +=1
     return count
 m = 0
-for i in range(0,101):
+mh = 0
+for i in range(n):
+    for j in range(n):
+        if graph[i][j] >mh:
+            mh = graph[i][j]
+for i in range(0,mh):
     c_graph = [[0]*n for _ in range(n)]
     result = []
     create(c_graph,i)
