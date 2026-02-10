@@ -1,31 +1,31 @@
 #include <bits/stdc++.h>
-using namespace std;                                  
-
+using namespace std;
 
 int main() {
-    int test;
-    cin >> test;
-    string s;
-    int cnt= 0;
-    for (int i =0; i <test; i++) {
+    // 같은 단어가 홀수일 경우
+     string s;
+    int n;
+    cin >> n;
+    int count =0;
+    for (int i =0; i<n; i++) {
         cin >> s;
-        vector<char> left;
-        for(char word: s) {
-             if (left.empty()) {
-                 left.push_back(word);
-                 continue;
-             } 
-            int endIdx = left.back();
-            if (endIdx == word) {
-                left.pop_back();
+        vector<char> v;
+        for (char word: s) {
+            if (v.size()) {
+                if (v.back() == word) {
+                    v.pop_back();
+                } else {
+                    v.push_back(word);
+                }
             } else {
-                left.push_back(word);
+                v.push_back(word);
             }
         }
-        if(left.empty()) {
-            cnt++;
+        
+        if (!v.size()) {
+            count++;
         }
     }
-    cout << cnt;
+    cout << count;
     return 0;
 }
