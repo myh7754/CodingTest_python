@@ -1,41 +1,33 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
+int num, r, root;
 vector<vector<int>> v;
-int cnt;
-int ez;
 int dfs(int here) {
-    if (here == ez) return 0; // 삭제된 노드는 없음
-
-    int aliveChild = 0;
-    int sum = 0;
-
+    int cnt=0, child = 0;
     for (int it : v[here]) {
-        if (it == ez) continue; // 삭제될 자식은 없는 취급
-        aliveChild++;
-        sum += dfs(it);
+        if (it == r) continue;
+        cnt += dfs(it);
+        child++;
     }
-
-    // 삭제되고 남은 자식이 0명이면 리프
-    if (aliveChild == 0) return 1;
-    return sum;
-} 
+    if (child == 0) return 1;
+    return cnt;
+}
 
 int main() {
-    int n;
-    cin >> n;
-    int num, root;
-    v.assign(n,vector<int>());
-    for (int i=0; i<n; i++) {
-        cin >> num;
-        if (num == -1) root = i;
-        else v[num].push_back(i);
+    cin >> num;
+    v.assign(num,vector<int>());
+    for (int i=0; i<num; i++) {
+        int k =0;
+        cin >> k;
+        if (k == -1) root = i;
+        else v[k].push_back(i);
     }
-
-    cin >> ez;
-if (root == ez) {
-        cout << 0 << "\n";
+    cin >> r;
+    if (r== root) {
+        cout << 0 ; 
         return 0;
     }
     cout << dfs(root);
-
+   
+    return 0;
 }
